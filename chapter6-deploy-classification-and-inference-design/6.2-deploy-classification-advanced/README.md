@@ -43,6 +43,9 @@ Deploy-classification-advanced
     - ...
 为了避免这种情况发生，可以使用unique pointer或者shared pointer这种智能指针帮助我们管理内存的释放。
 以及使用``RAII设计机制``，将资源的申请封装在一个对象的生命周期内，方便管理。
+当我们在C++中手动管理内存（使用 new 和 delete）时，很容易犯忘记释放内存，重复释放内存，释放未分配的内存等错误。
+std::unique_ptr：是独占所有权的智能指针，一个 unique_ptr 指针只能由一个对象拥有，不能被复制。适合需要明确所有权且不需要共享的场景。在 unique_ptr 离开作用域时，指向的内存会自动释放
+std::shared_ptr：是共享所有权的智能指针，多个 shared_ptr 可以共享同一块内存。只有当最后一个 shared_ptr 被销毁时，内存才会被释放。适合需要多个对象共同管理资源的场景。使用引用计数自动管理内存释放
 ``RAII``是Resource acquisition is initialization的缩写，中文译为“资源获取即初始化”。
 比较常见的方法就是在一个类的构造函数的时候就把一系列初始化完成。
 
